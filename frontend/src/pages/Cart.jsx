@@ -4,7 +4,8 @@ import Title from "../components/Title";
 import { assets } from "../assets/assets";
 
 const Cart = () => {
-  const { products, currency, cartItems } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity } =
+    useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
 
@@ -38,8 +39,6 @@ const Cart = () => {
             (product) => product._id === item._id
           );
 
-        
-
           return (
             <div
               key={index}
@@ -53,16 +52,41 @@ const Cart = () => {
                 />
 
                 <div>
-                  <p className=" text-sm sm:text-lg font-medium">{productData.name}</p>
+                  <p className=" text-sm sm:text-lg font-medium">
+                    {productData.name}
+                  </p>
                   <div className="flex items-center gap-5 mt-2">
-                  <p>{currency}{productData.price}</p>
-                  <p className="px-2 sm:px-3 border bg-slate-50">{item.size}</p>
+                    <p>
+                      {currency}
+                      {productData.price}
+                    </p>
+                    <p className="px-2 sm:px-3 border bg-slate-50">
+                      {item.size}
+                    </p>
                   </div>
-              
                 </div>
               </div>
-              <input className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1" type="number" min={1} defaultValue={item.quantity} />
-              <img className="w-4 mr-5 sm:w-5 cursor-pointer" src={assets.bin_icon} alt="" />
+              <input
+                onChange={(e) =>
+                  e.target.value === "" || e.target.value === "0"
+                    ? null
+                    : updateQuantity(
+                        item._id,
+                        item.size,
+                        Number(e.target.value)
+                      )
+                }
+                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
+                type="number"
+                min={1}
+                defaultValue={item.quantity}
+              />
+              <img
+                className="w-4 mr-5 sm:w-5 cursor-pointer"
+                src={assets.bin_icon}
+                alt=""
+                onClick={() => updateQuantity(item._id, item.size, "0")}
+              />
             </div>
           );
         })}
