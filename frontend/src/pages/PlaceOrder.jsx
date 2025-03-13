@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Title from "../components/Title";
 import CartTotal from "../components/CartTotal";
 import { assets } from "../assets/assets";
+import { ShopContext } from "../context/ShopContext";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
+  const {navigate}=useContext(ShopContext)
 
   return (
     <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t ">
@@ -78,7 +80,7 @@ const PlaceOrder = () => {
           <div className="flex gap-3 flex-col lg:flex-row">
             <div
               onClick={() => setMethod("stripe")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border p-2 px-3 cursor-pointer lg:w-38"
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
@@ -89,7 +91,7 @@ const PlaceOrder = () => {
             </div>
             <div
               onClick={() => setMethod("razorpay")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border p-2 px-3 cursor-pointer lg:w-44"
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
@@ -100,7 +102,7 @@ const PlaceOrder = () => {
             </div>
             <div
               onClick={() => setMethod("cod")}
-              className="flex items-center gap-3 border p-2 px-3 cursor-pointer"
+              className="flex items-center gap-3 border p-2 px-3 cursor-pointer "
             >
               <p
                 className={`min-w-3.5 h-3.5 border rounded-full ${
@@ -114,7 +116,7 @@ const PlaceOrder = () => {
           </div>
 
           <div className="w-full text-end mt-8 ">
-            <button className="bg-black text-white px-16 py-3 text-sm cursor-pointer">
+            <button onClick={()=>navigate("/orders")} className="bg-black text-white px-16 py-3 text-sm cursor-pointer">
               PLACE ORDER
             </button>
           </div>
