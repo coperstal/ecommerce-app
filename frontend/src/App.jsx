@@ -17,11 +17,12 @@ import { ToastContainer, toast } from 'react-toastify';
 
 const App = () => {
   return (
-    <div className="px-4 sm:px-[5vw] md:px-[5vw] lg:px-[9vw]">
+    <div className="px-4 sm:px-[5vw] md:px-[5vw] lg:px-[9vw] flex flex-col min-h-screen">
      <ToastContainer/>
       <Navbar />
       <SearchBar/>
-      <Routes>
+     <main className="flex-grow">
+     <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/about" element={<About />} />
@@ -32,6 +33,7 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/orders" element={<Orders />} />
       </Routes>
+     </main>
       <Footer/>
     </div>
   );
